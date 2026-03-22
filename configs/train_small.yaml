@@ -1,0 +1,10 @@
+model: yolo11n.pt
+data: data/visdrone.yaml
+epochs: 100
+imgsz: 960
+batch: 4
+device: "0"
+workers: 2
+project: runs
+name: yolo11n_visdrone
+resume: true

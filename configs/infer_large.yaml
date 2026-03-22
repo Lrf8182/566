@@ -1,0 +1,10 @@
+model: rtdetr-l.pt
+source: data/VisDrone2019-DET-val-third/images
+imgsz: 960
+conf: 0.25
+device: "0"
+project: runs/predict
+name: rtdetr_l_pretrained_visdrone
+save_txt: false
+save_conf: false
+max_images: 12
