@@ -91,8 +91,8 @@ def build_parser():
     parser.add_argument(
         "--root",
         type=Path,
-        default=Path(__file__).resolve().parent,
-        help="Dataset root directory containing VisDrone2019-DET-* folders. Defaults to the script directory.",
+        default=Path(__file__).resolve().parent / "data",
+        help="Dataset root directory containing VisDrone2019-DET-* folders. Defaults to <repo>/data.",
     )
     return parser
 

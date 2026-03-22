@@ -7,4 +7,3 @@ device: "0"
 workers: 8
 project: runs
 name: yolo11n_visdrone
-resume: false
