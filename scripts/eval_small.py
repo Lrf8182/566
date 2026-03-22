@@ -6,18 +6,18 @@ from ultralytics import YOLO
 
 
 DEFAULT_CONFIG = {
-    "model": "yolo11n.pt",
-    "data": "data/visdrone_1of3.yaml",
+    "model": "runs/detect/runs/yolo11n_visdrone/weights/best.pt",
+    "data": "data/visdrone.yaml",
     "split": "val",
     "imgsz": 960,
-    "batch": 8,
+    "batch": 16,
     "device": "0",
-    "workers": 4,
+    "workers": 8,
     "conf": 0.001,
     "iou": 0.7,
     "max_det": 300,
     "project": "runs/val",
-    "name": "yolo11n_visdrone_val1of3",
+    "name": "yolo11n_visdrone_val",
     "save_json": False,
     "plots": True,
 }
@@ -36,10 +36,13 @@ def str2bool(value):
 
 def build_parser():
     parser = argparse.ArgumentParser(
-        description="Evaluate a YOLO small model on the VisDrone val t, using official pretrained weights by default."
+        description="Evaluate a YOLO small model on VisDrone, using the trained VisDrone checkpoint by default."
     )
     parser.add_argument("--config", type=Path, help="Optional YAML config path for evaluation arguments.")
-    parser.add_argument("--model", help="Model weights or checkpoint path. Defaults to official yolo11n.pt.")
+    parser.add_argument(
+        "--model",
+        help="Model weights or checkpoint path. Defaults to runs/detect/runs/yolo11n_visdrone/weights/best.pt.",
+    )
     parser.add_argument("--data", help="Dataset YAML path.")
     parser.add_argument("--split", help="Dataset split to evaluate, for example val or test.")
     parser.add_argument("--imgsz", type=int, help="Validation image size.")

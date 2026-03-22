@@ -130,6 +130,17 @@ python scripts/train_large.py
 python scripts/eval_small.py --config configs/eval_small.yaml
 ```
 
+默认会使用训练得到的小模型权重：
+
+`runs/detect/runs/yolo11n_visdrone/weights/best.pt`
+
+如果想手动指定某个 checkpoint，例如 `last.pt`，可以这样跑：
+
+```bash
+python scripts/eval_small.py \
+  --model runs/detect/runs/yolo11n_visdrone/weights/last.pt
+```
+
 注意：
 
 - 评估脚本要求模型类别与数据集类别严格一致

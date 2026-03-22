@@ -1,4 +1,4 @@
-model: yolo11n.pt
+model: runs/detect/runs/yolo11n_visdrone/weights/best.pt
 data: data/visdrone.yaml
 split: val
 imgsz: 960

@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 
+import torch
 import yaml
 from ultralytics import YOLO
 
@@ -15,6 +16,7 @@ DEFAULT_CONFIG = {
     "workers": 2,
     "project": "runs",
     "name": "yolo11n_visdrone",
+    "resume": False,
 }
 
 
@@ -32,6 +34,11 @@ def build_parser():
     parser.add_argument("--workers", type=int, help="Dataloader workers.")
     parser.add_argument("--project", help="Ultralytics project directory.")
     parser.add_argument("--name", help="Run name.")
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Resume from a checkpoint and continue until --epochs is reached.",
+    )
     return parser
 
 
@@ -64,6 +71,23 @@ def parse_args():
     return parser.parse_args()
 
 
+def validate_resume_checkpoint(args):
+    if not args.resume:
+        return
+
+    model_path = Path(args.model)
+    if model_path.suffix != ".pt" or not model_path.exists():
+        return
+
+    ckpt = torch.load(model_path, map_location="cpu", weights_only=False)
+    if ckpt.get("epoch", -1) < 0:
+        raise ValueError(
+            f"{model_path} is a completed/stripped checkpoint and cannot be resumed. "
+            "Use it as the starting weights for a new fine-tuning run instead, for example: "
+            f"'python scripts/train_small.py --model {model_path} --epochs 50 --name yolo11n_visdrone_plus50'."
+        )
+
+
 def train(args):
     model = YOLO(args.model)
     model.train(
@@ -75,6 +99,7 @@ def train(args):
         workers=args.workers,
         project=args.project,
         name=args.name,
+        resume=args.resume,
         pretrained=True,
         cache=False,
         degrees=0.0,
@@ -90,6 +115,7 @@ def main():
     args = parse_args()
     if args.epochs <= 0:
         raise ValueError("--epochs must be positive.")
+    validate_resume_checkpoint(args)
     train(args)
 
 
