@@ -1,3 +1,4 @@
+import argparse
 from pathlib import Path
 import cv2
 from tqdm import tqdm
@@ -25,6 +26,8 @@ def convert_one_split(images_dir, annotations_dir, labels_dir):
     labels_dir.mkdir(parents=True, exist_ok=True)
 
     image_files = list(images_dir.glob("*.jpg")) + list(images_dir.glob("*.png"))
+    total_boxes = 0
+    non_empty_labels = 0
 
     for img_path in tqdm(image_files, desc=f"Converting {images_dir.name}"):
         img = cv2.imread(str(img_path))
@@ -34,7 +37,6 @@ def convert_one_split(images_dir, annotations_dir, labels_dir):
 
         ann_path = annotations_dir / f"{img_path.stem}.txt"
         out_path = labels_dir / f"{img_path.stem}.txt"
-
         yolo_lines = []
 
         if ann_path.exists():
@@ -72,8 +74,31 @@ def convert_one_split(images_dir, annotations_dir, labels_dir):
         with open(out_path, "w") as f:
             f.write("\n".join(yolo_lines))
 
+        if yolo_lines:
+            non_empty_labels += 1
+            total_boxes += len(yolo_lines)
+
+    print(
+        f"{images_dir.parent.name}: {len(image_files)} images, "
+        f"{non_empty_labels} non-empty labels, {total_boxes} boxes"
+    )
+
+
+def build_parser():
+    parser = argparse.ArgumentParser(
+        description="Convert VisDrone DET annotations to YOLO labels."
+    )
+    parser.add_argument(
+        "--root",
+        type=Path,
+        default=Path(__file__).resolve().parent,
+        help="Dataset root directory containing VisDrone2019-DET-* folders. Defaults to the script directory.",
+    )
+    return parser
+
 if __name__ == "__main__":
-    root = Path("./data")
+    args = build_parser().parse_args()
+    root = args.root.resolve()
 
     convert_one_split(
         root / "VisDrone2019-DET-train/images",
