@@ -1,0 +1,49 @@
+安装
+
+1. uv venv --python 3.12
+2. source .venv/bin/activate
+3. uv pip install ultralytics opencv-python pyyaml tqdm numpy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+data
+
+annotations：
+    bbox_left: 框左上角 x
+    bbox_top: 框左上角 y
+    bbox_width: 框宽
+    bbox_height: 框高
+    score: 在 GT 标注里通常可理解为“是否有效/是否忽略”，常见 1 是有效目标，0 常用于忽略区域
+    category: 类别编号
+    truncation: 是否被截断
+    occlusion: 遮挡程度，常见 0/1/2
+
+labels：
+    class_id：从 0 开始的类别编号
+    x_center：框中心点 x，已经除以图片宽度，范围 0 到 1
+    y_center：框中心点 y，已经除以图片高度，范围 0 到 1
+    width：框宽，占整张图宽度的比例
+    height：框高，占整张图高度的比例
+
+
+
+
+small eval:
+官方 yolo11n.pt 自带的是 COCO 80 类名，前 10 个正好就是你看到的 person/bicycle/car/motorcycle/airplane/.../traffic light。Ultralytics 在 val 可视化时用的是模型自己的 model.names，不是数据集的 VisDrone 类名，所以图上文字会错位。更重要的是，mAP 也会失真，因为 class id 的语义根本没对齐。
+
+small train ——1/3:
