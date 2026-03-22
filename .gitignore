@@ -6,3 +6,5 @@ temp/
 *.pt/
 *.jpg
 *.png
+
+data/
