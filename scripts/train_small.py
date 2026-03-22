@@ -11,7 +11,7 @@ DEFAULT_CONFIG = {
     "data": "data/visdrone.yaml",
     "epochs": 200,
     "imgsz": 960,
-    "batch": 64,
+    "batch": 32,
     "device": "0",
     "workers": 16,
     "project": "runs",
