@@ -113,6 +113,30 @@ python scripts/train_small.py --config configs/train_small.yaml
 python scripts/train_large.py
 ```
 
+或使用配置文件：
+
+```bash
+python scripts/train_large.py --config configs/train_large.yaml
+```
+
+如果你想跑多卡分布式训练，直接把 `device` 设成逗号分隔的 GPU 列表即可，例如：
+
+```bash
+python scripts/train_large.py \
+  --config configs/train_large.yaml \
+  --device 0,1,2,3 \
+  --batch 16 \
+  --workers 16 \
+  --name rtdetr_l_visdrone_ddp
+```
+
+常见建议：
+
+- 多卡时把 `batch` 适当调大，按总显存余量试
+- `workers` 通常可以按 GPU 数量一起增加
+- 如果内存足够，可以把 `cache` 设成 `ram` 或 `disk` 加速数据读取
+- 断点续训时传入 checkpoint 路径并加 `--resume`
+
 默认会读取：
 
 - 模型权重：`rtdetr-l.pt`
@@ -203,6 +227,6 @@ python scripts/infer_collab.py
 ```bash
 python convert_visdrone_to_yolo.py
 python scripts/train_small.py --config configs/train_small.yaml
-python scripts/train_large.py
+python scripts/train_large.py --config configs/train_large.yaml
 python scripts/infer_collab.py
 ```

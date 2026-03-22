@@ -1,0 +1,14 @@
+model: rtdetr-l.pt
+data: data/visdrone.yaml
+epochs: 100
+imgsz: 960
+batch: 64
+device: "0"
+workers: 8
+project: runs
+name: rtdetr_l_visdrone
+cache: false
+amp: true
+pretrained: true
+deterministic: true
+resume: false
