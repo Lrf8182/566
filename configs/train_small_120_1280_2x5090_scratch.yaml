@@ -3,9 +3,9 @@ data: data/visdrone.yaml
 
 epochs: 120
 imgsz: 1280
-batch: 16
+batch: 24
 device: "0,1"
-workers: 8
+workers: 16
 
 project: runs
 name: yolo11n_visdrone_1280_120ep_2x5090_scratch
