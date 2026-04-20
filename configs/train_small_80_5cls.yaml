@@ -4,11 +4,11 @@ data: data/visdrone.yaml
 epochs: 80
 imgsz: 1280
 batch: 16
-device: "0,1"
-workers: 16
+device: "0"
+workers: 8
 
 project: runs
-name: yolo11n_visdrone_1280_120ep_2x5090_scratch
+name: yolo11n_visdrone_1280_80ep_1gpu_5cls
 resume: false
 
 pretrained: true
