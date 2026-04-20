@@ -3,7 +3,7 @@ data: data/visdrone.yaml
 
 epochs: 120
 imgsz: 1280
-batch: 24
+batch: 16
 device: "0,1"
 workers: 16
 

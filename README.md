@@ -62,23 +62,27 @@ python convert_visdrone_to_yolo.py
 python convert_visdrone_to_yolo.py --root data
 ```
 
+如果你之前已经生成过旧的 10 类 YOLO 标签，也可以直接原地重映射成现在的 5 类：
+
+```bash
+python convert_visdrone_to_yolo.py \
+  --root data \
+  --remap-old-yolo-label-dir data/VisDrone2019-DET-train-third/labels \
+  --remap-old-yolo-label-dir data/VisDrone2019-DET-val-third/labels
+```
+
 运行后会在以下目录自动生成 `labels/`：
 
 - `data/VisDrone2019-DET-train/labels`
 - `data/VisDrone2019-DET-val/labels`
 
-类别映射已经在脚本中固定为 10 类：
+类别映射已经在脚本中固定为 5 类：
 
-- pedestrian
-- people
-- bicycle
+- person
+- two_wheeler
 - car
-- van
-- truck
+- large_vehicle
 - tricycle
-- awning-tricycle
-- bus
-- motor
 
 默认数据配置文件为 [data/visdrone.yaml](/home/ellen/Projects/uav_collab_det/data/visdrone.yaml)。
 

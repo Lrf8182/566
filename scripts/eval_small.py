@@ -130,8 +130,8 @@ def ensure_class_alignment(model, data_path):
         "Model classes do not match dataset classes, so validation metrics would be misleading. "
         f"Model names start with: {model_names[:10]}. "
         f"Dataset names are: {dataset_names}. "
-        "For example, official yolo11n.pt uses COCO class ids where class 4 is 'airplane', "
-        "but VisDrone class 4 is 'van'. "
+        "For example, official yolo11n.pt uses COCO class ids like class 1='bicycle' and class 3='motorcycle', "
+        "but this merged VisDrone setup uses class 1='two_wheeler' and class 3='large_vehicle'. "
         "Use a VisDrone-finetuned checkpoint for eval, or run inference only if you want a qualitative baseline."
     )
 
