@@ -1,2 +1,10 @@
-.pt
-.venv
+# Core dependencies used by the training, evaluation, and inference scripts.
+numpy
+opencv-python
+PyYAML
+torch
+tqdm
+ultralytics
+
+# Note:
+# For GPU usage, install the PyTorch build that matches your local CUDA setup.
