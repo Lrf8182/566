@@ -1,0 +1,35 @@
+model: runs/detect/runs/yolo11n_visdrone/weights/best.pt
+data: data/visdrone.yaml
+
+epochs: 120
+imgsz: 1280
+batch: 16
+device: "0,1"
+workers: 8
+
+project: runs
+name: yolo11n_visdrone_plus120_1280_2x5090
+resume: false
+
+pretrained: true
+cache: ram
+optimizer: auto
+
+close_mosaic: 15
+cos_lr: true
+
+mosaic: 1.0
+mixup: 0.0
+copy_paste: 0.0
+
+translate: 0.1
+scale: 0.3
+fliplr: 0.5
+flipud: 0.0
+
+degrees: 0.0
+shear: 0.0
+perspective: 0.0
+
+erasing: 0.1
+auto_augment: randaugment
